@@ -1,0 +1,1 @@
+if __name__=="__main__":    a=[1,2,3,4]    b=dict()    b[str(a)]=1    print(b[str(a)])
