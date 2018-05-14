@@ -1,1 +1,0 @@
-class node:    cl="" #类别    children=[] #子节点    def __init__(self,cl):        self.cl=clif __name__=="__main__":    a=[1,2,3,4]    print(a[-1])
