@@ -28,6 +28,7 @@ def get_Matrix_K():
     # std=np.std(np2,axis=0)
     # print("Std",std)
     np2=(np2-np.ones([np2.shape[0],1])*means)
+    # np2=preprocessing.normalize(np2)
     np2=preprocessing.normalize(np2)
 
     print(np2)
@@ -48,10 +49,12 @@ def Transfrom_Xto_feature():
                     nowfea.append(math.sqrt(2)*veclis[i][k]*veclis[i][x])
         # print(nowfea)
         feature.append(nowfea)
-    # means=np.mean(feature,axis=0)
-    # std=np.std(feature,axis=0)
+    means=np.mean(feature,axis=0)
+    std=np.std(feature,axis=0)
     # feature=(feature-np.ones([len(feature),1])*means)
-    # feature=preprocessing.normalize(feature)
+    # # feature=preprocessing.normalize(feature)
+    # feature=preprocessing.scale(feature)
+
     # for i in range(len(feature)):
     #     feature[i]=feature[i]/np.linalg.norm(feature[i])
     return feature
