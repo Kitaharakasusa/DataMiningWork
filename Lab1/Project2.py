@@ -23,15 +23,28 @@ def get_Matrix_K():
     for i in range(np2.shape[0]):
         for j in range(np2.shape[1]):
             np2[i][j]=math.pow(np.inner(np1[i],np1[j]),2) #取内积
-    means=np2.mean(axis=0)
+    #means=np2.mean(axis=0)
+
     # print(means)
     # std=np.std(np2,axis=0)
     # print("Std",std)
-    np2=(np2-np.ones([np2.shape[0],1])*means)
+    # print(means)
+    # print(means.shape)
+    # print(np2)
+    # np2=(np2-np.ones([np2.shape[0],1])*means)
+    # print(np2)
     # np2=preprocessing.normalize(np2)
-    np2=preprocessing.normalize(np2)
 
-    print(np2)
+    #centered
+    # print("lennp2",len(np2))
+    T1=np.eye(len(np2))-np.ones((len(np2),len(np2)))*1/len(np2)
+    # print("T1",T1)
+    c_k=T1 @ np2 @ T1
+    # print("c-k",c_k)
+    #normalized
+    w=np.diag(np.power(np.diagonal(c_k),-0.5))
+    res=w @ c_k @w
+    print("K",res)
 
 def Transfrom_Xto_feature():
     np1=read_file_getnp()
@@ -49,14 +62,15 @@ def Transfrom_Xto_feature():
                     nowfea.append(math.sqrt(2)*veclis[i][k]*veclis[i][x])
         # print(nowfea)
         feature.append(nowfea)
-    means=np.mean(feature,axis=0)
-    std=np.std(feature,axis=0)
-    # feature=(feature-np.ones([len(feature),1])*means)
-    # # feature=preprocessing.normalize(feature)
-    # feature=preprocessing.scale(feature)
 
-    # for i in range(len(feature)):
-    #     feature[i]=feature[i]/np.linalg.norm(feature[i])
+
+    means = np.mean(feature, axis=0)
+    #centered
+    feature=feature-np.mean(feature,axis=0)
+    #normalized
+    feature=preprocessing.normalize(feature)
+    print("feature",feature)
+
     return feature
 
 def Verify():
@@ -66,24 +80,11 @@ def Verify():
     for i in range(len(lis)):
         for j in range(len(lis)):
             res[i][j]=np.inner(lis[i],lis[j])
-    means=np.mean(res,axis=0)
-    # std=np.std(res,axis=0)
-    res=(res-np.ones([len(lis),1])*means)
-    res=preprocessing.normalize(res)
+    # means=np.mean(res,axis=0)
+    print("res",res)
     print(res)
 if __name__=="__main__":
     get_Matrix_K()
     print("______________---------------_______________")
     Verify()
     # print("______________---------------_______________")
-    # print(Transfrom_Xto_feature())
-    # Verify()
-    # get_Matrix_K()
-    # Transfrom_Xto_feature()
-    # get_Matrix_K()
-    # read_file_getnp()
-    # x1=np.array([5.9,3])
-    # x2=np.array([6.9,3.1])
-    # a=np.inner(x1,x2)
-    # print(a)
-    # get_Matrix_K()
