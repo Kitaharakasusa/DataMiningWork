@@ -9,10 +9,9 @@ class node:
     data=[]
     children = []  # 子节点
     purity=0
-    splitpoint=0 #属性分割值
-    splitindex=0 #属性下标
-    left=None;
-    right=None;
+    splitpoint=0 #属性分割值    splitindex=0 #属性下标
+    left=None
+    right=None
     def __init__(self, cl="",data=[],purity=0):
         # self.left=left
         # self.right=right
